@@ -7,8 +7,9 @@ User = get_user_model()
 
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("name",)
     search_fields = ("name",)
+    ordering = ("name",)
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
@@ -28,5 +29,8 @@ admin.site.register(User, UserAdmin)
 from .models import Organization, UserProfile, Zone
 @admin.register(Zone)
 class ZoneAdmin(admin.ModelAdmin):
-    list_display = ("id","name","organization")
+    list_display = ("name", "organization")
+    search_fields = ("name", "organization__name")
     list_filter = ("organization",)
+    list_select_related = ("organization",)
+    ordering = ("organization__name", "name")

@@ -15,9 +15,18 @@ class Product(models.Model):
     def __str__(self): return f"{self.name} ({self.sku})"
 
 class AlertRule(models.Model):
+    SEVERITY_CHOICES = [
+        ("info", "Informativa"),
+        ("warn", "Advertencia"),
+        ("crit", "Crítica"),
+    ]
     name = models.CharField(max_length=120)
     description = models.TextField(blank=True)
-    def __str__(self): return self.name
+    severity = models.CharField(max_length=5, choices=SEVERITY_CHOICES, default="warn")
+
+    def __str__(self):
+        return self.name
+
 
 class ProductAlertRule(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="alert_rules")
