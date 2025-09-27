@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h3>Bienvenido, {{ request.user.get_username }} 👋</h3>
+<p>Este dashboard está protegido con <code>@login_required</code>.</p>
+{% endblock %}
