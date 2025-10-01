@@ -7,7 +7,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Cargar variables de entorno (.env en la raíz del proyecto)
 load_dotenv(BASE_DIR / ".env")
-
+# --- Base de datos (switch por .env; usamos SQLite por ahora) ---
+ENGINE = os.getenv("DB_ENGINE", "sqlite")
 # --- Seguridad / Debug ---
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-unsafe")
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
@@ -61,8 +62,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-# --- Base de datos (switch por .env; usamos SQLite por ahora) ---
-ENGINE = os.getenv("DB_ENGINE", "sqlite")
+
 
 if ENGINE == "mysql":
     DATABASES = {
